@@ -10,9 +10,9 @@ struct group_s{
 
 
 struct freq_s {
+    struct group_s groups[NUM_BINS];
     struct group_s *g_head;
     struct group_s *g_tail;
-    struct group_s groups[NUM_BINS];
 };
 
 void init_freq(struct freq_s *freq);
