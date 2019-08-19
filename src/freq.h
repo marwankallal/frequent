@@ -24,8 +24,8 @@ struct freq_s {
     struct counter_s counters[NUM_BINS];
     struct group_s *g_head;
     struct group_s *g_tail;
-    uint32_t group_idx;
-    uint32_t counter_idx;
+    uint8_t group_idx[NUM_BINS];
+    uint8_t counter_idx[NUM_BINS];
 };
 
 void init_freq(struct freq_s *freq);
