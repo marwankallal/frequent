@@ -46,7 +46,34 @@ void init_freq(struct freq_s *freq){
 
 }
 
-// Add UNSIGNED int to tracker
+// Add int to tracker
 void freq_add_int(struct freq_s *freq, int val){
+    //Check if value is monitored
+    //TODO: Use hash table
+    uint8_t match = 0;
+    struct group_s *match_group = NULL;
+    struct counter_s *match_counter = NULL;
+    for (int g = 0; g < NUM_BINS; g++){
+        for (int c = 0; c < NUM_BINS; c++){
+            if (freq->groups[g].counters[c].value == val){
+                match_group = &(freq->groups[g]);
+                match_counter = &(freq->groups[g].counters[c]);
+                match = 1;
+            }
+        }
+    }
 
+    //Unmonitored, first group is zero
+    if (match == 0 && freq->g_head->count == 0){
+        freq->g_head->c_head->assigned = 1;
+        freq->g_head->c_head->value = val;
+    }
+    //Unmonitored, first group nonzero: skip value, decrement first group
+    else if (match == 0 && freq->g_head->count != 0){
+        freq->g_head->count--;
+    }
+    //monitored: increment value
+    else if (match == 1) {
+        //Add this counter to the next group
+    }
 }
