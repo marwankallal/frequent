@@ -26,13 +26,11 @@ void freq_add_int(struct freq_s *freq, int val){
     // TODO Run through group list then each counter list, check for val
 
 
-    //Unmonitored, first group is zero
+    //Unmonitored, first group is zero: add and increment
     if (match == 0 && freq->g_head->count == 0){
-        freq->g_head->c_head->value = val;
     }
     //Unmonitored, first group nonzero: skip value, decrement first group
     else if (match == 0 && freq->g_head->count != 0){
-        freq->g_head->count--;
     }
     //If we get here the element must be monitored and has to be incremented
     else{

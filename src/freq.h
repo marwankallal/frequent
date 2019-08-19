@@ -30,8 +30,3 @@ struct freq_s {
 struct freq_s init_freq(void);
 void freq_add_int(struct freq_s *freq, int val);
 void display_freq(struct freq_s *freq);
-
-void freq_ins_group(struct freq_s *freq, struct group_s *new_group, 
-        struct group_s *prev_group, struct group_s *next_group);
-
-void group_ins_counter(struct group_s *group, struct counter_s *new_counter);
