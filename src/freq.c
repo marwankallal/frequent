@@ -2,23 +2,24 @@
 #include "freq.h"
 
 // Set up the internals (link the lists etc)
-void init_freq(struct freq_s *freq){
-    // Start with one group, no counters yet
-    freq->g_head = freq->groups[0];
-    freq->g_tail = freq->groups[0];
-    
-    // Zero out allocation record
-    freq->group_idx = {0};
-    freq->counter_idx = {0};
+struct freq_s init_freq(void){
+    // C Standard guarantees this will zero
+    struct freq_s freq = {0};
 
+    // Start with one group, no counters yet
+    freq.g_head = &(freq.groups[0]);
+    freq.g_tail = &(freq.groups[0]);
+    
     // Using group 0
-    freq->group_idx[0] = 1;
+    freq.group_idx[0] = 1;
+
+    return freq;
 }
 
 // Add int to tracker
 void freq_add_int(struct freq_s *freq, int val){
     //Check if value is monitored
-    //FIXME: Use hash table
+    //FIXME: Use hash table of monitored values?
     uint8_t match = 0;
     struct group_s *match_group = NULL;
     struct counter_s *match_counter = NULL;
@@ -27,7 +28,6 @@ void freq_add_int(struct freq_s *freq, int val){
 
     //Unmonitored, first group is zero
     if (match == 0 && freq->g_head->count == 0){
-        freq->g_head->c_head->assigned = 1;
         freq->g_head->c_head->value = val;
     }
     //Unmonitored, first group nonzero: skip value, decrement first group

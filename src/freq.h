@@ -4,7 +4,6 @@
 
 struct counter_s{
     int value;
-    uint8_t assigned;
     struct group_s *group;
     struct counter_s *next;
     struct counter_s *prev;
@@ -28,7 +27,7 @@ struct freq_s {
     uint8_t counter_idx[NUM_BINS];
 };
 
-void init_freq(struct freq_s *freq);
+struct freq_s init_freq(void);
 void freq_add_int(struct freq_s *freq, int val);
 void display_freq(struct freq_s *freq);
 
