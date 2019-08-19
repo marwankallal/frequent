@@ -22,25 +22,7 @@ void init_freq(struct freq_s *freq){
         freq->groups[i].prev = &(freq->groups[i - 1]);
         freq->groups[i].count = 0;
 
-        // Make counter linked list
-        //Make head and tail
-        freq->groups[i].c_head = &(freq->groups[i].counters[0]);
-        freq->groups[i].c_head->next = &(freq->groups[i].counters[1]);
-        freq->groups[i].c_head->prev = NULL;
-        freq->groups[i].c_head->value = 0;
-        freq->groups[i].c_head->assigned = 0;
-        freq->groups[i].c_tail = &(freq->groups[i].counters[NUM_BINS - 1]);
-        freq->groups[i].c_tail->next = NULL;
-        freq->groups[i].c_tail->prev = &(freq->groups[i].counters[NUM_BINS - 2]);
-        freq->groups[i].c_tail->value = 0;
-        freq->groups[i].c_tail->assigned = 0;
-         
-        for(int k = 1; k < NUM_BINS - 1; k++){
-            freq->groups[i].counters[k].group = &(freq->groups[i]);
-            freq->groups[i].counters[k].next = &(freq->groups[i].counters[k + 1]);
-            freq->groups[i].counters[k].prev = &(freq->groups[i].counters[k - 1]);
-            freq->groups[i].counters[k].assigned = 0;
-        }
+        //Every group has no counters yet
     }
     
 
@@ -49,19 +31,12 @@ void init_freq(struct freq_s *freq){
 // Add int to tracker
 void freq_add_int(struct freq_s *freq, int val){
     //Check if value is monitored
-    //TODO: Use hash table
+    //FIXME: Use hash table
     uint8_t match = 0;
     struct group_s *match_group = NULL;
     struct counter_s *match_counter = NULL;
-    for (int g = 0; g < NUM_BINS; g++){
-        for (int c = 0; c < NUM_BINS; c++){
-            if (freq->groups[g].counters[c].value == val){
-                match_group = &(freq->groups[g]);
-                match_counter = &(freq->groups[g].counters[c]);
-                match = 1;
-            }
-        }
-    }
+    // TODO Run through group list then counter list, check for assigned value
+
 
     //Unmonitored, first group is zero
     if (match == 0 && freq->g_head->count == 0){
@@ -75,7 +50,9 @@ void freq_add_int(struct freq_s *freq, int val){
     //If we get here the element must be monitored and has to be incremented
     else{
 
-    }  
+    }   
+}
 
-    
+void display_freq(struct freq_s *freq){
+
 }
