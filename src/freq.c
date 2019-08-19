@@ -72,8 +72,10 @@ void freq_add_int(struct freq_s *freq, int val){
     else if (match == 0 && freq->g_head->count != 0){
         freq->g_head->count--;
     }
-    //monitored: increment value
-    else if (match == 1) {
-        //Add this counter to the next group
-    }
+    //If we get here the element must be monitored and has to be incremented
+    else{
+
+    }  
+
+    
 }
