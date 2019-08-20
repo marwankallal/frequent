@@ -23,10 +23,11 @@ struct freq_s {
     struct counter_s counters[NUM_BINS];
     struct group_s *g_head;
     struct group_s *g_tail;
-    uint8_t group_idx[NUM_BINS];
-    uint8_t counter_idx[NUM_BINS];
+
+    // Change counter_idx to fit NUM_BINS if needed
+    uint32_t counter_idx;
 };
 
 struct freq_s init_freq(void);
 void freq_add_int(struct freq_s *freq, int val);
-void display_freq(struct freq_s *freq);
+int most_freq(struct freq_s *freq);
